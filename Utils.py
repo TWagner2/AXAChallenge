@@ -15,13 +15,13 @@ def frequency_encoding_by_usertype(column,data): #Encode by the frequency of cus
 
 def frequency_encode_stations(data,features):
     C,S = frequency_encoding_by_usertype("start station id",data)
-    X["start customer freq"] = C
-    X["start subscriber freq"]= S
+    data["start customer freq"] = C
+    data["start subscriber freq"]= S
     C,S = frequency_encoding_by_usertype("start station id",data)
-    X["stop customer freq"] = C
-    X["stop subscriber freq"]= S
+    data["stop customer freq"] = C
+    data["stop subscriber freq"]= S
     features = features + ["start customer freq","start subscriber freq","stop customer freq","stop subscriber freq"]
-    return X
+    return data,features
 
 
 def load_data(data_path,features,preprocess=None,scaler=None,features_to_scale=None,fit_scaler=False,label="usertype"):
