@@ -1,4 +1,5 @@
 import pandas as pd
+import numpy as np
 from sklearn.metrics import confusion_matrix, accuracy_score, matthews_corrcoef
 
 def print_memory_usage(data):
@@ -12,17 +13,18 @@ def frequency_encoding_by_usertype(column,data): #Encode by the frequency of cus
     Subscriber_count = data[column].map(counts["Subscriber"]).fillna(0).astype(float)
     return Customer_count, Subscriber_count
 
-def frequency_encode_stations(X,data):
+def frequency_encode_stations(data,features):
     C,S = frequency_encoding_by_usertype("start station id",data)
     X["start customer freq"] = C
     X["start subscriber freq"]= S
     C,S = frequency_encoding_by_usertype("start station id",data)
     X["stop customer freq"] = C
     X["stop subscriber freq"]= S
+    features = features + ["start customer freq","start subscriber freq","stop customer freq","stop subscriber freq"]
     return X
 
 
-def load_data(data_path,features,preprocess=None,label="usertype"):
+def load_data(data_path,features,preprocess=None,scaler=None,features_to_scale=None,fit_scaler=False,label="usertype"):
     """
     Load data from data_path, optionally preprocess it, and return only the columns in features.
     
@@ -36,14 +38,18 @@ def load_data(data_path,features,preprocess=None,label="usertype"):
     #Conversion to float32 because otherwhise the decision tree trainer will copy the data
     X = data.drop(columns=unused).astype(np.float32)
     Y = data["usertype"].copy()
+    if scaler:
+        if fit_scaler:
+            scaler.fit(X[features_to_scale])
+        X[features_to_scale] = scaler.transform(X[features_to_scale])  
     Y=(Y=="Customer").astype(np.float32)
     return X,Y
 
-def train(data_path,clf,features,preprocess=None):
+def train(data_path,clf,features,preprocess=None,scaler=None,features_to_scale=None,fit_scaler=False):
     """
     Load data from data_path, optionally preprocess it, and train the given classifier on it.
     """
-    X_train,Y_train = load_data(data_path,features,preprocess=preprocess)
+    X_train,Y_train = load_data(data_path,features,preprocess=preprocess,scaler=scaler,features_to_scale=features_to_scale,fit_scaler=fit_scaler)
     clf = clf.fit(X_train,Y_train)
     evaluate_model(clf,X_train,Y_train)
     return clf,X_train.columns
@@ -62,8 +68,8 @@ def evaluate_model(model,X,Y,verbose=True):
         print(f"MCC: {MCC}")
     return acc,confusion,MCC
 
-def validate(model,data_path,features,preprocess=None):
+def validate(model,data_path,features,preprocess=None,scaler=None,features_to_scale=None,fit_scaler=False):
     """Load data from path and evaluate_model on it. """
-    X_val,Y_val = load_data(data_path,features,preprocess=preprocess)
+    X_val,Y_val = load_data(data_path,features,preprocess=preprocess,scaler=scaler,features_to_scale=features_to_scale,fit_scaler=fit_scaler)
     acc,conf,MCC=evaluate_model(model,X_val,Y_val)
     return acc,conf,MCC
