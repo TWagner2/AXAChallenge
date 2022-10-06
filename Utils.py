@@ -51,7 +51,7 @@ def train(data_path,clf,features,preprocess=None,scaler=None,features_to_scale=N
     """
     X_train,Y_train = load_data(data_path,features,preprocess=preprocess,scaler=scaler,features_to_scale=features_to_scale,fit_scaler=fit_scaler)
     clf = clf.fit(X_train,Y_train)
-    evaluate_model(clf,X_train,Y_train)
+    acc,conf,mcc = evaluate_model(clf,X_train,Y_train)
     return clf,X_train.columns
 
 def evaluate_model(model,X,Y,verbose=True):
