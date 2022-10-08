@@ -10,12 +10,14 @@ def print_memory_usage(data):
 
 def add_hours(data,features):
     """Add hour of day as explicit column. """
+    
     features = features + ["hour"]
     data["hour"] = data["starttime"].dt.hour
     return data,features
     
 def frequency_encoding_by_usertype(column,data): #Encode by the frequency of customers and subscribers
     """Map each category in columns to its frequency in the data, grouped by usertype."""
+    
     counts = data.groupby("usertype")[column].value_counts()
     counts = counts / counts.groupby("usertype").sum()
     customer_freq = data[column].map(counts["Customer"]).fillna(0).astype(float)
@@ -24,6 +26,7 @@ def frequency_encoding_by_usertype(column,data): #Encode by the frequency of cus
 
 def frequency_encode_stations(data,features):
     """Map each station id to the corresponding frequency of customers or subscribers. """
+    
     C,S = frequency_encoding_by_usertype("start station id",data)
     data["start customer freq"] = C
     data["start subscriber freq"]= S
@@ -38,14 +41,13 @@ def load_data(data_path,features,preprocess=None,scaler=None,features_to_scale=N
     """
     Load data from data_path, optionally preprocess it, and return only the columns in features.
     
-    If provided, preprocess should be a callable that takes data and a list of features, processes the data (which can involve adding new features),
-    and returns the processed data and the new list of features.
+    If provided, preprocess should be a callable that takes data and a list of features, processes the data (which can involve adding new features), and returns the processed data and the new list of features.
     """
     data = pd.read_parquet(data_path,engine="pyarrow")
     if preprocess:
         data,features = preprocess(data,features)
     unused = [c for c in data.columns if c not in features]
-    #Conversion to float32 because otherwhise the decision tree trainer will copy the data
+    #Conversion to float32 because otherwhise decision tree trainer will copy the data
     X = data.drop(columns=unused).astype(np.float32)
     Y = data["usertype"].copy()
     if scaler:
@@ -57,7 +59,7 @@ def load_data(data_path,features,preprocess=None,scaler=None,features_to_scale=N
 
 def train(data_path,clf,features,preprocess=None,scaler=None,features_to_scale=None,fit_scaler=False, eval = True):
     """
-    Load data from data_path, optionally preprocess it, train the given classifier on it, and optionally print evaluation on training set.
+    Load data from data_path, optionally preprocess and scale it, train the given classifier on it, and optionally print evaluation on training set.
     """
     X_train,Y_train = load_data(data_path,features,preprocess=preprocess,scaler=scaler,features_to_scale=features_to_scale,fit_scaler=fit_scaler)
     clf = clf.fit(X_train,Y_train)
@@ -67,6 +69,7 @@ def train(data_path,clf,features,preprocess=None,scaler=None,features_to_scale=N
 
 def evaluate_model(model,X,Y,verbose=True):
     """Print some summary statistics about the performance of model on the given data."""
+    
     Y_pred = model.predict(X)
     acc = accuracy_score(Y,Y_pred)
     confusion= confusion_matrix(Y,Y_pred,normalize="true")
@@ -80,6 +83,7 @@ def evaluate_model(model,X,Y,verbose=True):
 
 def validate(model,data_path,features,preprocess=None,scaler=None,features_to_scale=None,fit_scaler=False):
     """Load data from path and evaluate_model on it."""
+    
     X_val,Y_val = load_data(data_path,features,preprocess=preprocess,scaler=scaler,features_to_scale=features_to_scale,fit_scaler=fit_scaler)
     acc,conf,MCC=evaluate_model(model,X_val,Y_val)
     return acc,conf,MCC
