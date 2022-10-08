@@ -3,17 +3,21 @@ import numpy as np
 from sklearn.metrics import confusion_matrix, accuracy_score, matthews_corrcoef
 
 def print_memory_usage(data):
+    """Print memory usage of a dataframe in GB."""
+    
     memory = data.memory_usage(index=True,deep=True).sum()
     print(f"The dataframe needs {memory/1e9:.3} GB of memory") 
 
 def frequency_encoding_by_usertype(column,data): #Encode by the frequency of customers and subscribers
+    """Map each category in columns to its frequency in the data, grouped by usertype."""
     counts = data.groupby("usertype")[column].value_counts()
     counts = counts / counts.groupby("usertype").sum()
-    Customer_count = data[column].map(counts["Customer"]).fillna(0).astype(float)
-    Subscriber_count = data[column].map(counts["Subscriber"]).fillna(0).astype(float)
+    customer_freq = data[column].map(counts["Customer"]).fillna(0).astype(float)
+    cubscriber_freq = data[column].map(counts["Subscriber"]).fillna(0).astype(float)
     return Customer_count, Subscriber_count
 
 def frequency_encode_stations(data,features):
+    """Map each station id to the corresponding frequency of customers or subscribers. """
     C,S = frequency_encoding_by_usertype("start station id",data)
     data["start customer freq"] = C
     data["start subscriber freq"]= S
@@ -45,18 +49,18 @@ def load_data(data_path,features,preprocess=None,scaler=None,features_to_scale=N
     Y=(Y=="Customer").astype(np.float32)
     return X,Y
 
-def train(data_path,clf,features,preprocess=None,scaler=None,features_to_scale=None,fit_scaler=False):
+def train(data_path,clf,features,preprocess=None,scaler=None,features_to_scale=None,fit_scaler=False, eval = True):
     """
-    Load data from data_path, optionally preprocess it, and train the given classifier on it.
+    Load data from data_path, optionally preprocess it, train the given classifier on it, and optionally print evaluation on training set.
     """
     X_train,Y_train = load_data(data_path,features,preprocess=preprocess,scaler=scaler,features_to_scale=features_to_scale,fit_scaler=fit_scaler)
     clf = clf.fit(X_train,Y_train)
-    acc,conf,mcc = evaluate_model(clf,X_train,Y_train)
+    if eval:
+        acc,conf,mcc = evaluate_model(clf,X_train,Y_train)
     return clf,X_train.columns
 
 def evaluate_model(model,X,Y,verbose=True):
     """Print some summary statistics about the performance of model on the given data."""
-    #TODO: Add uncertainty estimates about these
     Y_pred = model.predict(X)
     acc = accuracy_score(Y,Y_pred)
     confusion= confusion_matrix(Y,Y_pred,normalize="true")
@@ -69,7 +73,7 @@ def evaluate_model(model,X,Y,verbose=True):
     return acc,confusion,MCC
 
 def validate(model,data_path,features,preprocess=None,scaler=None,features_to_scale=None,fit_scaler=False):
-    """Load data from path and evaluate_model on it. """
+    """Load data from path and evaluate_model on it."""
     X_val,Y_val = load_data(data_path,features,preprocess=preprocess,scaler=scaler,features_to_scale=features_to_scale,fit_scaler=fit_scaler)
     acc,conf,MCC=evaluate_model(model,X_val,Y_val)
     return acc,conf,MCC
