@@ -9,7 +9,7 @@ The data is expected to be availabe in unzipped form in a folder "Data" in the w
 The project is grouped into several jupyter notebooks, in order:
 1. **DataCleaning.ipynb**:
 
- Data loading, preparation and cleaning. Also some visualization of basic properties of the data. Splitting into train, validation and test set.
+ Data loading, preparation and cleaning. Also some visualization of basic properties of the data. Splitting into training, validation and test set.
 
 2. **Analysis.ipynb**:
 
