@@ -21,8 +21,8 @@ def frequency_encoding_by_usertype(column,data): #Encode by the frequency of cus
     counts = data.groupby("usertype")[column].value_counts()
     counts = counts / counts.groupby("usertype").sum()
     customer_freq = data[column].map(counts["Customer"]).fillna(0).astype(float)
-    cubscriber_freq = data[column].map(counts["Subscriber"]).fillna(0).astype(float)
-    return Customer_count, Subscriber_count
+    subscriber_freq = data[column].map(counts["Subscriber"]).fillna(0).astype(float)
+    return customer_freq, subscriber_freq
 
 def frequency_encode_stations(data,features):
     """Map each station id to the corresponding frequency of customers or subscribers. """
