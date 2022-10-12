@@ -4,20 +4,17 @@ from sklearn.metrics import confusion_matrix, accuracy_score, matthews_corrcoef
 
 def print_memory_usage(data):
     """Print memory usage of a dataframe in GB."""
-    
-    memory = data.memory_usage(index=True,deep=True).sum()
+    memory = data.memory_usage(index=True, deep=True).sum()
     print(f"The dataframe needs {memory/1e9:.3} GB of memory") 
 
 def add_hours(data,features):
     """Add hour of day as explicit column. """
-    
     features = features + ["hour"]
     data["hour"] = data["starttime"].dt.hour
     return data,features
     
 def frequency_encoding_by_usertype(column,data): #Encode by the frequency of customers and subscribers
     """Map each category in columns to its frequency in the data, grouped by usertype."""
-    
     counts = data.groupby("usertype")[column].value_counts()
     counts = counts / counts.groupby("usertype").sum()
     customer_freq = data[column].map(counts["Customer"]).fillna(0).astype(float)
@@ -26,13 +23,12 @@ def frequency_encoding_by_usertype(column,data): #Encode by the frequency of cus
 
 def frequency_encode_stations(data,features):
     """Map each station id to the corresponding frequency of customers or subscribers. """
-    
     C,S = frequency_encoding_by_usertype("start station id",data)
     data["start customer freq"] = C
-    data["start subscriber freq"]= S
+    data["start subscriber freq"] = S
     C,S = frequency_encoding_by_usertype("start station id",data)
     data["stop customer freq"] = C
-    data["stop subscriber freq"]= S
+    data["stop subscriber freq"] = S
     features = features + ["start customer freq","start subscriber freq","stop customer freq","stop subscriber freq"]
     return data,features
 
@@ -69,7 +65,6 @@ def train(data_path,clf,features,preprocess=None,scaler=None,features_to_scale=N
 
 def evaluate_model(model,X,Y,verbose=True):
     """Print some summary statistics about the performance of model on the given data."""
-    
     Y_pred = model.predict(X)
     acc = accuracy_score(Y,Y_pred)
     confusion= confusion_matrix(Y,Y_pred,normalize="true")
@@ -83,7 +78,6 @@ def evaluate_model(model,X,Y,verbose=True):
 
 def validate(model,data_path,features,preprocess=None,scaler=None,features_to_scale=None,fit_scaler=False):
     """Load data from path and evaluate_model on it."""
-    
     X_val,Y_val = load_data(data_path,features,preprocess=preprocess,scaler=scaler,features_to_scale=features_to_scale,fit_scaler=fit_scaler)
     acc,conf,MCC=evaluate_model(model,X_val,Y_val)
     return acc,conf,MCC
