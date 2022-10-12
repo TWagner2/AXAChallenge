@@ -13,7 +13,7 @@ def add_hours(data,features):
     data["hour"] = data["starttime"].dt.hour
     return data,features
     
-def frequency_encoding_by_usertype(column,data): #Encode by the frequency of customers and subscribers
+def frequency_encoding_by_usertype(column,data):
     """Map each category in columns to its frequency in the data, grouped by usertype."""
     counts = data.groupby("usertype")[column].value_counts()
     counts = counts / counts.groupby("usertype").sum()
