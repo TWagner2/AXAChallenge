@@ -24,8 +24,6 @@
   pdfproducer={latex beamer}
 }
 
-%\usepackage{nicematrix}
-%\usepackage{tikz}
 \usetikzlibrary{matrix}
 
 \definecolor{highlightred}{RGB}{168,59,0}
@@ -65,19 +63,15 @@
 \begin{frame}{CitiBike}
 \begin{columns}
 \begin{column}{0.4\linewidth}
-%\emph{CitiBike-Stationen (2022)}\\[.2cm]
-\includegraphics[height=0.9\textheight]{Bilder/CitiBike-Map.png}
+\includegraphics[height=0.9\textheight]{../Images/CitiBike-Map.png}
 \end{column}
 \begin{column}{0.6\linewidth}
 
-%\only<1>
-%{
 \myBlock[1]{CitiBike in 2022}
 {
 \begin{itemize}
 \item über 24.000 Fahrräder
 \item über 1.500 Verleihstationen
-%\item über 17 Millionen Fahrten
 \end{itemize}
 }
 %}
@@ -104,7 +98,7 @@
 \myBlock[1]{Daten von 2018}{17 Millionen Fahrten,  800 			Stationen, 15.000 Fahrräder
 	}
 
-\includegraphics[width = \textwidth]{Bilder/Data}
+\includegraphics[width = \textwidth]{../Images/Data}
 
 \only{\tiny{Gender: 0 = unknown, 1 = male, 2 = female \; Tripduration: in Sekunden}}
 \end{frame}
@@ -153,11 +147,6 @@
 \end{enumerate}
 }
 \end{frame}
-%\begin{frame}
-%\begin{beamercolorbox}[sep=8pt,center]{title}
-%    \usebeamerfont{title}{Datenset und Features}
-%\end{beamercolorbox}
-%\end{frame}
 
 \section{Datenset und Features}
 
@@ -180,11 +169,6 @@
 }
 \end{frame}
 
-%\begin{frame}
-%\begin{beamercolorbox}[sep=8pt,center]{title}
-%    \usebeamerfont{title}{Wichtige Features}
-%\end{beamercolorbox}
-%\end{frame}
 
 \begin{frame}{Wichtige Features}
 \myBlock[0.48]{Fahrtdauer}
@@ -251,8 +235,6 @@
 \item 40.000 Einträge: Rundfahrt unter 2 min.
 \end{itemize}
 }
-%\end{column}
-%\end{columns}
 \end{frame}
 
 \begin{frame}{Training-Test Split}
@@ -546,7 +528,6 @@ Customer oft Touristen.
 \begin{itemize}
 \item \highlight{Genauigkeit: 90,4 \%}
 \item Confusion:
-%Table from https://tex.stackexchange.com/questions/339535/what-to-put-into-the-intersection-of-the-row-column-labels-of-a-table
 \[
 \begin{array}{@{}l*{5}{c}@{}}
 \text{Echt} & \multicolumn{2}{c@{}}{\text{Vorhergesagt}}\\
@@ -568,7 +549,6 @@ Customer oft Touristen.
 \begin{itemize}
 \item Genauigkeit: 79,5 \%
 \item Confusion:
-%Table from https://tex.stackexchange.com/questions/339535/what-to-put-into-the-intersection-of-the-row-column-labels-of-a-table
 \[
 \begin{array}{@{}l*{5}{c}@{}}
 \text{Echt} & \multicolumn{2}{c@{}}{\text{Vorhergesagt}}\\
@@ -622,21 +602,8 @@ Fahrtdauer, Distanz, Geschwindigkeit, Stationen
 \item Mehrere Hyperparameter, z.B.: Maximale Tiefe, Anzahl Bäume
 \end{itemize}
 }
-%\begin{columns}
-%\begin{column}{0.4\textwidth}
 \centering
-\includegraphics[width=0.48\textwidth]{Bilder/GridSearchMCC} 
-%\end{column}
-%\begin{column}{0.6\textwidth}
-%\myBlock[1]{Ergebnisse}
-%{
-%\begin{itemize}
-%\item MCC: Forest $>$ Tree $>$ Regression.
-%\item Kleinere Bäume und Logistic Regression haben höhere Genauigkeit auf Customers (vermeiden Overfitting).
-%\end{itemize}
-%}
-%\end{column}
-%\end{columns}
+\includegraphics[width=0.48\textwidth]{../Images/GridSearchMCC} 
 \end{frame}
 
 \begin{frame}{Finale Auswertung}
@@ -656,7 +623,6 @@ Fahrtdauer, Distanz, Geschwindigkeit, Stationen
 \begin{itemize}
 \item \highlight{Genauigkeit: 91,8 \%}
 \item Confusion:
-%Table from https://tex.stackexchange.com/questions/339535/what-to-put-into-the-intersection-of-the-row-column-labels-of-a-table
 \[
 \begin{array}{@{}l*{5}{c}@{}}
 \text{Echt} & \multicolumn{2}{c@{}}{\text{Vorhergesagt}}\\
@@ -679,7 +645,6 @@ Fahrtdauer, Distanz, Geschwindigkeit, Stationen
 \begin{itemize}
 \item Genauigkeit: 82,9 \%
 \item Confusion:
-%Table from https://tex.stackexchange.com/questions/339535/what-to-put-into-the-intersection-of-the-row-column-labels-of-a-table
 \[
 \begin{array}{@{}l*{5}{c}@{}}
 \text{Echt} & \multicolumn{2}{c@{}}{\text{Vorhergesagt}}\\
@@ -759,6 +724,8 @@ CitiBike übernimmt bei einem Unfall keine Kosten, außer bei defekten Rädern.
 \end{itemize}
 }
 \end{frame}
+
+\section{Backup}
 
 \begin{frame}{Decision Tree and Random Forest}
 \includegraphics[width=\textwidth]{../Images/ExampleTree}
