@@ -61,6 +61,8 @@
 }
 \end{frame}
 
+\section{Projektbeschreibung}
+
 \begin{frame}{CitiBike}
 \begin{columns}
 \begin{column}{0.4\linewidth}
@@ -138,7 +140,6 @@
 \end{columns}
 \end{frame}
 
-\section{Data Loading}
 
 \begin{frame}{Agenda}
 \centering
@@ -159,6 +160,8 @@
 %\end{beamercolorbox}
 %\end{frame}
 
+\section{Datenset und Features}
+
 \begin{frame}{Data-Loading}
 \myBlock[1]{Daten-Format}
 {
@@ -167,18 +170,16 @@
 \item Naives Einlesen benötigt $>$ 9 GB Speicher.
 \end{itemize}
 }
-\myBlock[1]{Daten Konvertierung}
+\myBlock[1]{Daten-Konvertierung}
 {
 \begin{itemize}
 \item Pandas \highlight{Category-dtype} für Stationsnamen.
 \item Pandas \highlight{Datetime-dtype} für Timestamps.
 \item Zusammenführen von Kategorien über mehrere Dateien.
-\item Parquet Format zum Erhalt von dtype Information.
+\item Parquet-Format zum Erhalt von dtype-Information.
 \end{itemize}
 }
 \end{frame}
-
-\section{Unsupervised Analysis}
 
 %\begin{frame}
 %\begin{beamercolorbox}[sep=8pt,center]{title}
@@ -238,8 +239,6 @@
 \includegraphics[height=0.9\textheight]{../Images/Piechart}
 \end{frame}
 
-\section{Data Cleaning}
-
 \begin{frame}{Data Cleaning}
 \centering
 \myBlock[0.6]{Entferne: }
@@ -259,13 +258,13 @@
 
 \begin{frame}{Training-Test Split}
 
-\myBlock[1]{Splitting oder Kreuzvalidierung?}
+\myBlock[1]{Validationset oder Kreuzvalidierung?}
 {
 \begin{itemize}
 \item Kreuzvalidierung:
 \begin{itemize}
 \item K-facher Split des Datensets
-\item K-Modelle: Training auf (K-1)-Teilen, Test auf dem übrigen 
+\item K-Modelle: Training auf (K-1)-Teilen, Test auf einem Teil
 \item Ermöglicht Nutzung von mehr Trainings Daten
 \item Rechenzeit aufwendiger
 \end{itemize}
@@ -300,7 +299,7 @@
 }
 \end{frame}
 
-\section{Supervised Analysis}
+\section{Feature Visualisierung}
 
 \begin{frame}{Agenda}
 \centering
@@ -490,8 +489,6 @@ Customer oft Touristen.
 \end{minipage}
 \end{frame}
 
-\section{Logistic Regression}
-
 \begin{frame}{Logistic Regression}
 \myBlock[1]{Modell}
 {
@@ -545,10 +542,10 @@ Customer oft Touristen.
 
 \begin{columns}
 \begin{column}{0.5\textwidth}
-\myBlock[1]{Ohne Class Balancing}
+\myBlock[1]{Ohne Class-Balancing}
 {
 \begin{itemize}
-\item Genauigkeit: 90,4 \%
+\item \highlight{Genauigkeit: 90,4 \%}
 \item Confusion:
 %Table from https://tex.stackexchange.com/questions/339535/what-to-put-into-the-intersection-of-the-row-column-labels-of-a-table
 \[
@@ -567,7 +564,7 @@ Customer oft Touristen.
 }
 \end{column}
 \begin{column}{0.5\textwidth}
-\myBlock[1]{Mit Class Balancing}
+\myBlock[1]{Mit Class-Balancing}
 {
 \begin{itemize}
 \item Genauigkeit: 79,5 \%
@@ -580,7 +577,7 @@ Customer oft Touristen.
     & \text{Subscriber} & \text{Customer}\\
 \midrule
 \text{Subscriber} & 79,6\% & 20,4 \% \\
-\text{Customer}   & 21,7 \% & 78,3 \% \\
+\text{Customer}   & 21,7 \% & \highlight{78,3 \%} \\
 \bottomrule
 \end{array}
 \]
@@ -596,10 +593,7 @@ Fahrtdauer, Distanz, Geschwindigkeit, Stationen
 }
 \end{frame}
 
-
-\section{Decision Trees}
-
-\begin{frame}{Decision Tree and Random Forest}
+\begin{frame}{Decision-Tree und Random-Forest}
 \myBlock[1]{Decision Tree}
 {
 \begin{itemize}
@@ -609,10 +603,10 @@ Fahrtdauer, Distanz, Geschwindigkeit, Stationen
 \item \highlight{Tendiert zu Overfitting}.
 \end{itemize}
 }
-\myBlock[1]{Random Forest}
+\myBlock[1]{Random-Forest}
 {
 \begin{itemize}
-\item Bagging mehrerer Decision Trees.
+\item Bagging mehrerer Decision-Trees.
 \item Bootstrap-Sampling der Training-Daten.
 \item Zufällige Maskierung von Features in jedem Split.
 \item Kontrolliert Overfitting.
@@ -620,7 +614,7 @@ Fahrtdauer, Distanz, Geschwindigkeit, Stationen
 }
 \end{frame}
 
-\begin{frame}{Decision Tree}
+\begin{frame}{Decision-Tree}
 \myBlock[1]{Design}
 {
 \begin{itemize}
@@ -661,7 +655,7 @@ Fahrtdauer, Distanz, Geschwindigkeit, Stationen
 {
 \highlight{Insgesamt bestes Modell}.
 \begin{itemize}
-\item Genauigkeit: 91,8 \%
+\item \highlight{Genauigkeit: 91,8 \%}
 \item Confusion:
 %Table from https://tex.stackexchange.com/questions/339535/what-to-put-into-the-intersection-of-the-row-column-labels-of-a-table
 \[
@@ -675,12 +669,12 @@ Fahrtdauer, Distanz, Geschwindigkeit, Stationen
 \bottomrule
 \end{array}
 \]
-\item MCC: $0,53$
+\item \highlight{MCC: $0,53$}
 \end{itemize}
 }
 \end{column}
 \begin{column}{0.5\textwidth}
-\myBlock[1]{Decision Tree}
+\myBlock[1]{Decision-Tree}
 {
 \highlight{Hohe Genauigkeit auf Customers}.
 \begin{itemize}
@@ -694,7 +688,7 @@ Fahrtdauer, Distanz, Geschwindigkeit, Stationen
     & \text{Subscriber} & \text{Customer}\\
 \midrule
 \text{Subscriber} & 84,2 \% & 15,8 \% \\
-\text{Customer}   & 28,1 \% & 71,9 \% \\
+\text{Customer}   & 28,1 \% & \highlight{71,9 \%} \\
 \bottomrule
 \end{array}
 \]
@@ -719,7 +713,7 @@ Fahrtdauer, Distanz, Geschwindigkeit, Stationen
  
 \item \highlight{Hohe Genauigkeit auf Customers}:
 
-kleinerer Decision-Tree/Logistic Regression
+Kleinerer Decision-Tree/Logistic Regression
 \item Hohe Genauigkeit auf Customers z.B.\ relevant im Marketing.
 \end{itemize}
 }
