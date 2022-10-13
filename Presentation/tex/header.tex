@@ -1,0 +1,172 @@
+%\documentclass[ignorenonframetext]{beamer}
+
+\documentclass[fleqn,
+  11pt, %default: 11pt
+  xcolor=dvipsnames, 
+  aspectratio=1610, 
+  ]{beamer}% 11pt is default
+% Possible values for aspectratio are: 169 (160mm by 90mm), 1610 (160mm x 100mm), 149, 54, 43 (128mm by 96mm, default), 32.
+
+\usepackage{etex} % to avoid error "No room for a new \dimen" when loading the decorations tikzlibrary
+\usepackage[absolute,overlay]{textpos}
+
+
+\usepackage{amsthm} %for theorem environments
+\usepackage{amssymb} %lots of math symbols
+\usepackage{mathtools} %for, e.g., \DeclareMathOperator
+\usepackage{amsmath} %for spacing in equations and aligns
+\usepackage{mathbbol} %for \1, load at last
+\usepackage{mathrsfs}
+\usepackage{amsfonts} 
+\usepackage{marvosym}% for \Lightning and \RightScissors
+
+\usepackage{pifont}
+\usepackage{lmodern}%to avoid font size warnings
+
+\usepackage{graphicx}
+\graphicspath{{../pics/}}
+\usepackage{listings}
+\usepackage{array}
+\usepackage{makecell}
+\usepackage{mathtools}
+% \usepackage{complexity}
+% \newlang{\TSP}{TSP}
+\usepackage{calc}%for \widthof{text}
+\usepackage{multicol}
+\usepackage{booktabs}
+%\usepackage{enumitem}
+
+% show numbers in the bibliography
+\setbeamertemplate{bibliography item}[text]
+%\setbeamertemplate{page number in head/foot}{}
+
+% print emphasized text in structure color instead of italic in beamer mode
+\renewcommand{\emph}[1]{\structure{#1}}
+\newcommand{\gruen}[1]{{\color{NiceGreen} #1}}
+\newcommand{\dunkelrot}[1]{{\color{DarkRed} #1}}
+\newcommand{\rot}[1]{{\color{red} #1}}
+\newcommand{\LG}[1]{{\color{lightGray} #1}}
+\newcommand{\grau}[1]{{\color{black!60} #1}}
+
+% restrict equation numbering to referenced equations in beamer mode
+\mathtoolsset{showonlyrefs}
+
+%disable navigation symbols
+\setbeamertemplate{navigation symbols}{}
+
+%document setup
+\usepackage[utf8]{inputenc} 
+
+%language setup
+\usepackage[english]{babel}
+
+%color and picture modification packages 
+%\usepackage{colortbl}
+\usepackage{fix-cm}
+\usepackage{multirow}
+\usepackage{setspace}
+\usepackage{multicol}
+\usepackage{ifthen}% iftheles
+%%% ---------------------- TikZ -------------------------
+\usepackage{pgfplots}
+\pgfplotsset{compat=newest}
+\usepackage{tikz}
+\usepackage{qrcode}
+\usetikzlibrary{
+  % shapes,
+  shapes.geometric,
+  shapes.arrows,
+  % chains,
+  % decorations.pathreplacing,
+  decorations.pathmorphing,
+  decorations.markings, % can mess up the axes for pgfplots
+  positioning,
+  fit,
+  fadings,
+%   backgrounds,
+  calc,
+  shapes.callouts,
+  patterns, 
+  fillbetween,
+  }
+
+\newcommand{\rndpos}{\pgfmathparse{0.2}\pgfmathresult}
+
+% red bullets in itemize with <red@1->
+\newenvironment{redenv}{\only{\setbeamercolor{local structure}{fg=red}}}{} 
+\newenvironment{defaultenv}{\only{\setbeamercolor{local structure}{fg=niceblue}}}{} 
+
+%own themes
+\useoutertheme[nofootline]{wuerzburg}
+\usecolortheme{shark}
+\useinnertheme[realshadow,corners=2pt,padding=2pt]{chamfered}
+\usefonttheme{professionalfonts}
+
+%custom colors
+\setbeamercolor{black}{bg=black}
+
+\definecolor{DarkGray}{gray}{0.25} 
+\definecolor{MidGray}{gray}{0.38} 
+\definecolor{NeutralGray}{gray}{0.5}
+\definecolor{LightGray}{gray}{0.7}
+\definecolor{lightGray}{gray}{0.85}
+\definecolor{DarkRed}{rgb}{0.7,0,0}
+\definecolor{DarkBlue}{rgb}{0,0,0.5}
+\definecolor{SteelBlue}{rgb}{0,0.4,0.6}
+\definecolor{Orange}{rgb}{0.7,0.5,0}
+\definecolor{Violette}{rgb}{0.5,0,0.5}
+\definecolor{Sand}{rgb}{0.84,0.8,0.55}
+\definecolor{niceblue}{rgb}{0.33,0.5,0.8}
+\definecolor{OliveGreen}{RGB}{0,102,102}
+\definecolor{NiceGreen}{RGB}{0,153,72}
+
+%other
+\newcommand{\cmark}{\ding{52}}
+\newcommand{\xmark}{\ding{55}}
+
+\newcommand{\tikzframe}[2]{
+	\begin{frame}[t]\frametitle{#1}
+		\begin{tikzpicture}[ol]
+		#2
+		\end{tikzpicture}
+	\end{frame}	
+}
+
+\newcommand{\specialcell}[2][c]{%for cells in tabulars
+  \begin{tabular}[#1]{@{}c@{}}#2\end{tabular}}
+
+% set itemsep in itemize, enumerate, ...
+\newcommand{\MyItemSep}[1]{\setlength\itemsep{#1 \baselineskip}} 
+
+\newcommand{\myBlock}[3][0.6]{
+  \begin{minipage}{#1 \linewidth}
+  \begin{block}{#2}
+  #3
+  \end{block}
+  \end{minipage}
+}
+
+\newenvironment{MRuleBlock}[3]{%
+\begin{minipage}[t][#2][t]{#3}%
+\begin{block}{#1}%
+}{%
+\end{block}%
+\end{minipage}%
+}
+
+\renewcommand{\mp}[3][]{%
+  #1%
+  \begin{minipage}{#2\linewidth}%
+    #3%
+  \end{minipage}%
+  % \flushleft%
+  }
+
+
+
+\newcommand{\fs}[1]{{\footnotesize #1}}
+\newcommand{\sms}[1]{{\small #1}}
+\newcommand{\fos}[1]{{\footnotesize #1}}
+\newcommand{\scs}[1]{{\scriptsize #1}}
+\newcommand{\tis}[1]{{\tiny #1}}
+
