@@ -47,6 +47,20 @@
 	\titlepage
 \end{frame}
 
+\begin{frame}{Agenda}
+\centering
+\myBlock[0.6]{}
+{
+\begin{enumerate}
+\item \highlight{Projektbeschreibung}
+\item Datenset und Features
+\item Feature-Visualisierung
+\item Modell-Training und -Auswahl
+\item Kooperationsmöglichkeiten mit einer Versicherung
+\end{enumerate}
+}
+\end{frame}
+
 \begin{frame}{CitiBike}
 \begin{columns}
 \begin{column}{0.4\linewidth}
@@ -66,7 +80,7 @@
 \end{itemize}
 }
 %}
-\myBlock[1]{Subscription Modell}
+\myBlock[1]{Subscription-Modell}
 {
 \begin{itemize}
 \item \highlight{Subscriber}:
@@ -80,15 +94,6 @@
 \end{itemize}
 \end{itemize}
 }
-%\only<2>
-%{
-%\myBlock[1]{Projekt}
-%{
-%\begin{itemize}
-%\item Nutzer-Klassifizierung (Customer / Subscriber)
-%\end{itemize}
-%}
-%}
 {\PutAt<2>[10cm]{(3cm,4.5cm)}{\myBlock[1]{\LARGE Projekt}{\Large Nutzer-Klassifizierung (Customer/Subscriber)}}}
 \end{column}
 \end{columns}
@@ -106,7 +111,7 @@
 
 
 
-\begin{frame}{Übersicht}
+\begin{frame}{Vorgehen und Tools}
 \begin{columns}
 \begin{column}{0.5\textwidth}
 \begin{MRuleBlock}{Vorgehen}{3.45cm}{\textwidth}
@@ -135,98 +140,92 @@
 
 \section{Data Loading}
 
-\begin{frame}{Data Loading}
-\myBlock[1]{Daten Format}
+\begin{frame}{Agenda}
+\centering
+\myBlock[0.6]{}
+{
+\begin{enumerate}
+\item Projektbeschreibung
+\item \highlight{Datenset und Features}
+\item Feature Visualisierung
+\item Modell Training und Auswahl
+\item Kooperationsmöglichkeiten mit einer Versicherung
+\end{enumerate}
+}
+\end{frame}
+%\begin{frame}
+%\begin{beamercolorbox}[sep=8pt,center]{title}
+%    \usebeamerfont{title}{Datenset und Features}
+%\end{beamercolorbox}
+%\end{frame}
+
+\begin{frame}{Data-Loading}
+\myBlock[1]{Daten-Format}
 {
 \begin{itemize}
-\item Eine CSV Datei pro Monat
+\item Eine CSV-Datei pro Monat
 \item Naives Einlesen benötigt $>$ 9 GB Speicher
 \end{itemize}
 }
 \myBlock[1]{Daten Konvertierung}
 {
 \begin{itemize}
-\item Category und Datetime dtypes
+\item Pandas Category-dtype für Stationsnamen
+\item Pandas Datetime-dtype für Timestamps
 \item Zusammenführen von Kategorien über mehrere Dateien
 \item Parquet Format zum Erhalt von dtype Information
 \end{itemize}
 }
 \end{frame}
 
-
-
 \section{Unsupervised Analysis}
 
-\begin{frame}
+%\begin{frame}
+%\begin{beamercolorbox}[sep=8pt,center]{title}
+%    \usebeamerfont{title}{Wichtige Features}
+%\end{beamercolorbox}
+%\end{frame}
 
-\begin{beamercolorbox}[sep=8pt,center]{title}
-    \usebeamerfont{title}{Datenset und Features}
-\end{beamercolorbox}
-\end{frame}
-
-\begin{frame}{Fahrtdauer}
+\begin{frame}{Wichtige Features}
+\myBlock[0.48]{Fahrtdauer}
+{
 \centering
-\includegraphics[height=0.6\textheight]{../Images/Tripduration}
-\only<1>
-{
-\myBlock[1]{}
-{
+\includegraphics[width=0.9\textwidth]{../Images/Tripduration}
 \begin{itemize}
 \item<1> Typische Fahrten zwischen 2-60 min.
-\item<1> Fahrten küzer als 1 min. wurden bereits von CitiBike entfernt.
-\item<1> 350.000 Rundfahrten (Start Station = End Station)
+\item<1> Fahrten kürzer als 1 min. von CitiBike entfernt.
+\item<1> 350.000 Rundfahrten
+
+(Startstation = Endstation)
 \end{itemize}
 }
-}
-\end{frame}
-
-\begin{frame}{Zusätzliche Features}
-
-\centering
-\includegraphics[height=0.6\textheight]{../Images/Distance.png}
-
-\only<1>
+\myBlock[0.48]{Haversine-Distanz}
 {
-\myBlock[1]{Distanz}
-{
+\includegraphics[width=0.9\textwidth]{../Images/Distance.png}
 \begin{itemize}
-\item Haversine Distanz zwischen Start und End Koordinaten.
-\item Luftlinie, keine Routen Information
-\end{itemize}
-}
-}
+\item Luftlinie Start- zu End-Koordianten
+\item keine Routen Information
+\item \highlight{Geschwindigkeit} =
 
-\only<2>
-{
-\myBlock[1]{Geschwindigkeit}
-{
-\begin{itemize}
-\item Haversine Distanz / Fahrtdauer
+ Distanz / Fahrtdauer
 \item 0 für Rundfahrten
 \end{itemize}
 }
-}
 \end{frame}
 
-\begin{frame}{Zusätzliche Features}
-\centering
-\includegraphics[height=0.6\textheight]{../Images/CountByMonth}
-
-\myBlock[1]{Jahreszeit}
+\begin{frame}{Wichtige Features}
+\myBlock[0.48]{Jahreszeit}
 {
+\includegraphics[width=0.9\textwidth]{../Images/CountByMonth}
 \begin{itemize}
-\item Mehr Fahrten zwischen May und Oktober
-\item Indikator Feature "Summer" für diese Monate
+\item Mehr Fahrten zwischen Mai und Oktober
+\item Kategorisierte Monate in "Sommer" und "Winter"
 \end{itemize}
 }
-\end{frame}
-
-\begin{frame}{Zusätzliche Features}
-\centering
-\includegraphics[height=0.6\textheight]{../Images/CountByBusiness}
-
-\myBlock[1]{Arbeitstage versus Ferien}
+\myBlock[0.48]{Feiertage}
 {
+\centering
+\includegraphics[width=\textwidth]{../Images/CountByBusiness}
 \begin{itemize}
 \item 251 Arbeitstage
 \item 114 Ferientage / Wochenenden
@@ -234,14 +233,14 @@
 }
 \end{frame}
 
+\begin{frame}{Nicht-Balancierte Daten}
+\centering
+\includegraphics[height=0.9\textheight]{../Images/Piechart}
+\end{frame}
+
 \section{Data Cleaning}
 
 \begin{frame}{Data Cleaning}
-%\begin{columns}
-%\begin{column}{0.5\textwidth}
-%\includegraphics[width=\textwidth]{../Images/Tripduration}
-%\end{column}
-%\begin{column}{0.5\textwidth}
 \centering
 \myBlock[0.6]{Entferne: }
 {
@@ -258,49 +257,63 @@
 %\end{columns}
 \end{frame}
 
-\begin{frame}{Nicht Balancierte Daten}
-%\begin{columns}
-%\begin{column}{0.5\linewidth}
-\centering
-\includegraphics[height=0.9\textheight]{../Images/Piechart}
-%\end{column}
-%\begin{column}{0.5\linewidth}
-%\myBlock[1]{Evaluation}
-%{
-%\begin{itemize}
-%\item Baseline: 89\% Genauigkeit
-%\item Confusion-Matrix
-%\item Mathews Correlation Coefficient
-%\end{itemize}
-%}
-%\myBlock[1]{Training}
-%{
-%\begin{itemize}
-%\item Kostenfunktion gewichten
-%\end{itemize}
-%}
-%\end{column}
-%\end{columns}
-\end{frame}
-
 \begin{frame}{Training-Test Split}
-\myBlock[1]{Splitting versus Cross-Validation}
+
+\myBlock[1]{Splitting oder Kreuzvalidierung?}
 {
+\begin{itemize}
+\item Kreuzvalidierung:
+\begin{itemize}
+\item K-facher Split des Datensets
+\item K-Modelle: Training auf (K-1)-Teilen, Test auf dem übrigen 
+\item Ermöglicht Nutzung von mehr Trainings Daten
+\item Rechenzeit aufwendiger
+\end{itemize}
+\item Hier:
 \begin{itemize}
 \item Mehr als 17 Millionen Datenpunkte.
 \item $80\%-10\%-10\%$ Training-Validation-Test Split.
-\item SE auf der kleineren Klasse $\approx \pm 0.02\%$ .
-\item Keine Cross-Validierung
+\item SE auf der kleineren Klasse $\approx \pm 0.02\%$ (bei einer Genauigkeit von $99\%$).
+\end{itemize}
+\highlight{Keine Kreuzvalidierung nötig.}
+\end{itemize}
+}
+\end{frame}
+
+\begin{frame}
+\centering
+\myBlock[0.7]{Zusammenfassung}
+{
+\begin{itemize}
+\item Bisher:
+\begin{itemize}
+\item Betrachtung des gesamten Datensets
+\item Erste Identifikation von Features
+\item Keine Betrachtung von Labels
+\end{itemize}
+\item Nächster Schritt:
+\begin{itemize}
+\item Betrachtung der Labels (nur auf Trainingset)
+\item Auswahl sinnvoller Features.
+\end{itemize}
 \end{itemize}
 }
 \end{frame}
 
 \section{Supervised Analysis}
 
-\begin{frame}
-\begin{beamercolorbox}[sep=8pt,center]{title}
-    \usebeamerfont{title}{Analyse der Training Daten}
-\end{beamercolorbox}
+\begin{frame}{Agenda}
+\centering
+\myBlock[0.6]{}
+{
+\begin{enumerate}
+\item Projektbeschreibung
+\item Datenset und Features
+\item \highlight{Feature Visualisierung}
+\item Modell Training und Auswahl
+\item Kooperationsmöglichkeiten mit einer Versicherung
+\end{enumerate}
+}
 \end{frame}
 
 \begin{frame}{Jahreszeit und Ferien}
@@ -321,6 +334,7 @@ Customer fahren häufiger:
 \begin{itemize}
 \item im Sommer.
 \item an Feiertagen und Wochenenden.
+\item Kategorisierte Features.
 \end{itemize}
 }
 \end{frame}
@@ -353,7 +367,10 @@ Customer machen:
 \includegraphics[height=0.6\textheight]{../Images/StartTimeByBusiness}
 \myBlock[1]{Zusammenfassung}
 {
-Subscriber nutzen CitiBike auf dem Weg zur Arbeit.
+\begin{itemize}
+\item Subscriber nutzen CitiBike auf dem Weg zur Arbeit.
+\item Interaktion Arbeitstag x Tageszeit
+\end{itemize}
 }
 \end{frame}
 
@@ -383,15 +400,52 @@ Subscriber nutzen CitiBike auf dem Weg zur Arbeit.
 }
 \end{frame}
 
-\section{Training und Auswahl}
-
 \begin{frame}
-\begin{beamercolorbox}[sep=8pt,center]{title}
-    \usebeamerfont{title}{Modell Training und Auswahl}
-\end{beamercolorbox}
+\centering
+\myBlock[0.7]{Zusammenfassung}
+{
+\begin{columns}
+\begin{column}[t]{0.5\textwidth}
+\highlight{Sinnvolle Features}:
+\begin{itemize}
+\item Sommer/Winter
+\item Tageszeit
+\item Arbeitstag
+\item Distanz
+\item Geschwindigkeit
+\item Rundfahrt
+\item Station
+\end{itemize}
+\end{column}
+\begin{column}[t]{0.5\textwidth}
+\highlight{Irreführende Features}:
+\begin{itemize}
+\item Geschlecht
+\item Alter
+\end{itemize}
+\end{column}
+\end{columns}
+\vspace{1cm}
+}
 \end{frame}
 
-\begin{frame}{Nicht Balancierte Daten}
+\section{Training und Auswahl}
+
+\begin{frame}{Agenda}
+\centering
+\myBlock[0.6]{}
+{
+\begin{enumerate}
+\item Projektbeschreibung
+\item Datenset und Features
+\item Feature-Visualisierung
+\item \highlight{Modell-Training und -Auswahl}
+\item Kooperationsmöglichkeiten mit einer Versicherung
+\end{enumerate}
+}
+\end{frame}
+
+\begin{frame}{Nicht-Balancierte Daten}
 \myBlock[0.5]{Evaluierung}
 {
 \begin{itemize}
@@ -412,17 +466,17 @@ Subscriber nutzen CitiBike auf dem Weg zur Arbeit.
 \begin{array}{@{}l*{5}{c}@{}}
 \text{Echt} & \multicolumn{2}{c@{}}{\text{Vorhergesagt}}\\
     \cmidrule(l){2-3}
-    & Subscriber & Customer\\
+    & \text{Subscriber} & \text{Customer}\\
 \midrule
-Subscriber & TN & FN  \\
-Customer   & FP & TP  \\
+\text{Subscriber} & TN & FN  \\
+\text{Customer}   & FP & TP  \\
 \bottomrule
 \end{array}
 \]
 \vspace{0.1cm}
 }
 
-\myBlock[0.5]{Class Balancing}
+\myBlock[0.5]{Class-Balancing}
 {
 \begin{itemize}
 \item Gewichtung mit inversem Anteil
@@ -445,15 +499,17 @@ Customer   & FP & TP  \\
 \begin{equation}
 \log(\frac{p}{1-p}) = X\beta
 \end{equation}
-\item Weight-Decay Regularisierung
-\item Feature Kodierung und Skalierung relevant.
+\item \highlight{Lineare Decision-Boundary} $x \cdot \beta = 0$.
+\item Feature Kodierung sehr relevant.
+\item Weight-Decay Regularisierung $\left\lVert\beta\right\rVert_2^2$ $\rightarrow$ Feature-Skalierung relevant.
 \item Interaktionen müssen von Hand eingebaut werden.
+\item Baseline für andere Modelle.
 \end{itemize}
 }
 \end{frame}
 
 \begin{frame}{Logistic Regression}
-\myBlock[1]{Hyperparameter}
+\myBlock[1]{Design}
 {
 \highlight{Features}: Fahrtdauer, Sommer, Arbeitstag, Distanz, Rundfahrt, Geschwindigkeit
 \vspace{-0.4cm}
@@ -474,12 +530,11 @@ Customer   & FP & TP  \\
 \end{itemize}
 \end{multicols}
 
-\highlight{Interaktionen}: Tageszeit x Arbeitstag, Start- x End-Station
+\highlight{Interaktionen}: Tageszeit x Arbeitstag, Start- x Endstation
 
 \highlight{Skalierung}: Min-Max Skalierung in das Intervall $[0,1]$.
 
-\highlight{Training}: Class Balancing?
-
+\highlight{Training}: Class-Balancing?
 }
 \end{frame}
 
@@ -499,10 +554,10 @@ Customer   & FP & TP  \\
 \begin{array}{@{}l*{5}{c}@{}}
 \text{Echt} & \multicolumn{2}{c@{}}{\text{Vorhergesagt}}\\
     \cmidrule(l){2-3}
-    & Subscriber & Customer\\
+    & \text{Subscriber} & \text{Customer}\\
 \midrule
-Subscriber & 98,2\% & 1,8 \% \\
-Customer   & 72,7 \% & 27,3 \% \\
+\text{Subscriber} & 98,2\% & 1,8 \% \\
+\text{Customer}   & 72,7 \% & 27,3 \% \\
 \bottomrule
 \end{array}
 \]
@@ -521,10 +576,10 @@ Customer   & 72,7 \% & 27,3 \% \\
 \begin{array}{@{}l*{5}{c}@{}}
 \text{Echt} & \multicolumn{2}{c@{}}{\text{Vorhergesagt}}\\
     \cmidrule(l){2-3}
-    & Subscriber & Customer\\
+    & \text{Subscriber} & \text{Customer}\\
 \midrule
-Subscriber & 79,6\% & 20,4 \% \\
-Customer   & 21,7 \% & 78,3 \% \\
+\text{Subscriber} & 79,6\% & 20,4 \% \\
+\text{Customer}   & 21,7 \% & 78,3 \% \\
 \bottomrule
 \end{array}
 \]
@@ -550,52 +605,49 @@ Fahrtdauer, Distanz, Geschwindigkeit, Stationen
 \item Serie von Splits des Datensets.
 \item Nicht-Lineares Modell.
 \item Findet Interaktionen.
-\item Tendiert zu Overfitting.
+\item \highlight{Tendiert zu Overfitting}.
 \end{itemize}
 }
 \myBlock[1]{Random Forest}
 {
 \begin{itemize}
 \item Bagging mehrerer Decision Trees.
-\item Bootstrap Sampling der Training Daten.
+\item Bootstrap-Sampling der Training-Daten.
 \item Zufällige Maskierung von Features in jedem Split.
 \item Kontrolliert Overfitting.
 \end{itemize}
 }
 \end{frame}
 
-\begin{frame}{Decision Tree and Random Forest}
-\includegraphics[width=\textwidth]{../Images/ExampleTree}
-\end{frame}
-
 \begin{frame}{Decision Tree}
 \myBlock[1]{Design}
 {
 \begin{itemize}
-\item Feature Kodierung und Skalierung unwichtig.
-\item Class Balancing
+\item Feature-Kodierung und -Skalierung weniger relevant.
+\item Class-Balancing
 \item Mehrere Hyperparameter, z.B.: Maximale Tiefe, Anzahl Bäume
 \end{itemize}
 }
-\begin{columns}
-\begin{column}{0.4\textwidth}
-\includegraphics[width=\textwidth]{Bilder/GridSearchMCC} 
-\end{column}
-\begin{column}{0.6\textwidth}
-\myBlock[1]{Ergebnisse}
-{
-\begin{itemize}
-\item MCC: Forest $>$ Tree $>$ Regression.
-\item Kleinere Bäume und Logistic Regression haben höhere Genauigkeit auf Customers (vermeiden Overfitting).
-\end{itemize}
-}
-\end{column}
-\end{columns}
+%\begin{columns}
+%\begin{column}{0.4\textwidth}
+\centering
+\includegraphics[width=0.48\textwidth]{Bilder/GridSearchMCC} 
+%\end{column}
+%\begin{column}{0.6\textwidth}
+%\myBlock[1]{Ergebnisse}
+%{
+%\begin{itemize}
+%\item MCC: Forest $>$ Tree $>$ Regression.
+%\item Kleinere Bäume und Logistic Regression haben höhere Genauigkeit auf Customers (vermeiden Overfitting).
+%\end{itemize}
+%}
+%\end{column}
+%\end{columns}
 \end{frame}
 
 \begin{frame}{Finale Auswertung}
 
-\myBlock[1]{Performance Vorhersage}
+\myBlock[1]{Performance-Vorhersage}
 {
 \makebox[2cm][l]{\highlight{Training}:} Auf Training + Validation Set
 
@@ -606,7 +658,7 @@ Fahrtdauer, Distanz, Geschwindigkeit, Stationen
 \begin{column}{0.5\textwidth}
 \myBlock[1]{Forest}
 {
-Insgesamt bestes Modell.
+\highlight{Insgesamt bestes Modell}.
 \begin{itemize}
 \item Genauigkeit: 91,8 \%
 \item Confusion:
@@ -615,10 +667,10 @@ Insgesamt bestes Modell.
 \begin{array}{@{}l*{5}{c}@{}}
 \text{Echt} & \multicolumn{2}{c@{}}{\text{Vorhergesagt}}\\
     \cmidrule(l){2-3}
-    & Subscriber & Customer\\
+    & \text{Subscriber} & \text{Customer}\\
 \midrule
-Subscriber & 97,2 \% & 2,8 \% \\
-Customer   & 51,2 \% & 48,7 \% \\
+\text{Subscriber} & 97,2 \% & 2,8 \% \\
+\text{Customer}   & 51,2 \% & 48,7 \% \\
 \bottomrule
 \end{array}
 \]
@@ -629,7 +681,7 @@ Customer   & 51,2 \% & 48,7 \% \\
 \begin{column}{0.5\textwidth}
 \myBlock[1]{Decision Tree}
 {
-Hohe Genauigkeit auf Customers.
+\highlight{Hohe Genauigkeit auf Customers}.
 \begin{itemize}
 \item Genauigkeit: 82,9 \%
 \item Confusion:
@@ -638,10 +690,10 @@ Hohe Genauigkeit auf Customers.
 \begin{array}{@{}l*{5}{c}@{}}
 \text{Echt} & \multicolumn{2}{c@{}}{\text{Vorhergesagt}}\\
     \cmidrule(l){2-3}
-    & Subscriber & Customer\\
+    & \text{Subscriber} & \text{Customer}\\
 \midrule
-Subscriber & 84,2 \% & 15,8 \% \\
-Customer   & 28,1 \% & 71,9 \% \\
+\text{Subscriber} & 84,2 \% & 15,8 \% \\
+\text{Customer}   & 28,1 \% & 71,9 \% \\
 \bottomrule
 \end{array}
 \]
@@ -652,12 +704,37 @@ Customer   & 28,1 \% & 71,9 \% \\
 \end{columns}
 \end{frame}
 
+\begin{frame}
+\centering
+\myBlock[0.8]{Zusammenfassung}
+{
+\begin{itemize}
+\item Modell Wahl hängt vom Anwendungsfall ab.
+\item \highlight{Insgesamt bestes Modell} (MCC):
+
+ Großer Random-Forest
+\item \highlight{Hohe Genauigkeit auf Customers}:
+
+Decision-Tree/Logistic Regression
+\item Hohe Genauigkeit auf Customers z.B.\ relevant im Marketing.
+\end{itemize}
+}
+\end{frame}
+
 \section{Kooperation mit einer Versicherung}
 
-\begin{frame}
-\begin{beamercolorbox}[sep=8pt,center]{title}
-    \usebeamerfont{title}{Kooperation mit einer Versicherung}
-\end{beamercolorbox}
+\begin{frame}{Agenda}
+\centering
+\myBlock[0.6]{}
+{
+\begin{enumerate}
+\item Projektbeschreibung
+\item Datenset und Features
+\item Feature-Visualisierung
+\item Modell-Training und -Auswahl
+\item \highlight{Kooperationsmöglichkeiten mit einer Versicherung}
+\end{enumerate}
+}
 \end{frame}
 
 \begin{frame}{Kooperation mit einer Versicherung}
@@ -684,7 +761,10 @@ CitiBike übernimmt bei einem Unfall keine Kosten, außer bei defekten Rädern.
 \item Rabatte bei Versicherungen für Subscriber.
 \end{itemize}
 }
+\end{frame}
 
+\begin{frame}{Decision Tree and Random Forest}
+\includegraphics[width=\textwidth]{../Images/ExampleTree}
 \end{frame}
 
 
