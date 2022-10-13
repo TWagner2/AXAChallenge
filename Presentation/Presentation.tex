@@ -163,17 +163,17 @@
 \myBlock[1]{Daten-Format}
 {
 \begin{itemize}
-\item Eine CSV-Datei pro Monat
-\item Naives Einlesen benötigt $>$ 9 GB Speicher
+\item Eine CSV-Datei pro Monat.
+\item Naives Einlesen benötigt $>$ 9 GB Speicher.
 \end{itemize}
 }
 \myBlock[1]{Daten Konvertierung}
 {
 \begin{itemize}
-\item Pandas Category-dtype für Stationsnamen
-\item Pandas Datetime-dtype für Timestamps
-\item Zusammenführen von Kategorien über mehrere Dateien
-\item Parquet Format zum Erhalt von dtype Information
+\item Pandas \highlight{Category-dtype} für Stationsnamen.
+\item Pandas \highlight{Datetime-dtype} für Timestamps.
+\item Zusammenführen von Kategorien über mehrere Dateien.
+\item Parquet Format zum Erhalt von dtype Information.
 \end{itemize}
 }
 \end{frame}
@@ -204,7 +204,7 @@
 \includegraphics[width=0.9\textwidth]{../Images/Distance.png}
 \begin{itemize}
 \item Luftlinie Start- zu End-Koordianten
-\item keine Routen Information
+\item Keine Routen Information
 \item \highlight{Geschwindigkeit} =
 
  Distanz / Fahrtdauer
@@ -219,15 +219,15 @@
 \includegraphics[width=0.9\textwidth]{../Images/CountByMonth}
 \begin{itemize}
 \item Mehr Fahrten zwischen Mai und Oktober
-\item Kategorisierte Monate in "Sommer" und "Winter"
+\item Kategorisierung in "Sommer" und "Winter"
 \end{itemize}
 }
-\myBlock[0.48]{Feiertage}
+\myBlock[0.48]{Werktage}
 {
 \centering
 \includegraphics[width=\textwidth]{../Images/CountByBusiness}
 \begin{itemize}
-\item 251 Arbeitstage
+\item 251 Werktage
 \item 114 Ferientage / Wochenenden
 \end{itemize}
 }
@@ -369,7 +369,7 @@ Customer machen:
 {
 \begin{itemize}
 \item Subscriber nutzen CitiBike auf dem Weg zur Arbeit.
-\item Interaktion Arbeitstag x Tageszeit
+\item Interaktion Werktag x Tageszeit
 \end{itemize}
 }
 \end{frame}
@@ -404,13 +404,14 @@ Customer machen:
 \centering
 \myBlock[0.7]{Zusammenfassung}
 {
+Customer oft Touristen.
 \begin{columns}
 \begin{column}[t]{0.5\textwidth}
 \highlight{Sinnvolle Features}:
 \begin{itemize}
 \item Sommer/Winter
 \item Tageszeit
-\item Arbeitstag
+\item Werktag
 \item Distanz
 \item Geschwindigkeit
 \item Rundfahrt
@@ -511,7 +512,7 @@ Customer machen:
 \begin{frame}{Logistic Regression}
 \myBlock[1]{Design}
 {
-\highlight{Features}: Fahrtdauer, Sommer, Arbeitstag, Distanz, Rundfahrt, Geschwindigkeit
+\highlight{Features}: Fahrtdauer, Sommer, Werktag, Distanz, Rundfahrt, Geschwindigkeit
 \vspace{-0.4cm}
 \begin{multicols}{2}
 \begin{itemize}
@@ -530,7 +531,7 @@ Customer machen:
 \end{itemize}
 \end{multicols}
 
-\highlight{Interaktionen}: Tageszeit x Arbeitstag, Start- x Endstation
+\highlight{Interaktionen}: Tageszeit x Werktag, Start- x Endstation
 
 \highlight{Skalierung}: Min-Max Skalierung in das Intervall $[0,1]$.
 
